@@ -101,7 +101,7 @@ export interface AuthUser {
 }
 
 export interface LoginCredentials {
-  username: string;
+  identifier: string;
   password: string;
 }
 

@@ -11,18 +11,23 @@ const generateToken = (id) => {
 // Login user
 export const login = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const identifier = req.body.identifier || req.body.username || req.body.email;
+    const { password } = req.body;
 
     // Validate input
-    if (!username || !password) {
+    if (!identifier || !password) {
       return res.status(400).json({
         success: false,
-        message: 'Please provide username and password',
+        message: 'Please provide username/email and password',
       });
     }
 
+    const query = identifier.includes('@')
+      ? { email: identifier.toLowerCase() }
+      : { username: identifier };
+
     // Check for user
-    const user = await User.findOne({ username }).select('+password');
+    const user = await User.findOne(query).select('+password');
     
     if (!user || !(await user.matchPassword(password))) {
       return res.status(401).json({

@@ -6,7 +6,7 @@ import { authApi } from '../../services/api';
 
 export function Login() {
   const [credentials, setCredentials] = useState({
-    username: '',
+    identifier: '',
     password: '',
   });
   const [loading, setLoading] = useState(false);
@@ -26,7 +26,7 @@ export function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!credentials.username || !credentials.password) {
+    if (!credentials.identifier || !credentials.password) {
       setError('Please fill in all fields');
       return;
     }
@@ -66,17 +66,17 @@ export function Login() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Username
+                Username or Email
               </label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="text"
-                  name="username"
-                  value={credentials.username}
+                  name="identifier"
+                  value={credentials.identifier}
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6BCFCB] focus:border-transparent transition-all"
-                  placeholder="Enter your username"
+                  placeholder="Enter your username or email"
                   disabled={loading}
                 />
               </div>

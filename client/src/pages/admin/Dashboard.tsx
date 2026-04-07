@@ -1,47 +1,35 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { 
-  User, 
-  Briefcase, 
-  GraduationCap, 
-  Award, 
-  BookOpen, 
-  Code, 
-  LogOut 
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  User,
+  Briefcase,
+  GraduationCap,
+  Award,
+  BookOpen,
+  Code,
+  LogOut,
 } from 'lucide-react';
 import { useAdminStore } from '../../store/adminStore';
 import { usePortfolioStore } from '../../store/portfolioStore';
-import { portfolioApi } from '../../services/api';
 
 export function Dashboard() {
   const navigate = useNavigate();
   const { user, logout } = useAdminStore();
-  const { 
-    about, 
-    skills, 
-    experience, 
-    education, 
-    research, 
-    achievements, 
+  const {
+    about,
+    skills,
+    experience,
+    education,
+    research,
+    achievements,
     contact,
-    loading 
+    loading,
+    fetchPortfolioData,
   } = usePortfolioStore();
 
   useEffect(() => {
-    const loadPortfolioData = async () => {
-      try {
-        const response = await portfolioApi.getFullPortfolio();
-        if (response.success) {
-          // Update store with fetched data - this would need to be implemented in store
-          console.log('Portfolio data loaded:', response.data);
-        }
-      } catch (error) {
-        console.error('Failed to load portfolio data:', error);
-      }
-    };
-
-    loadPortfolioData();
-  }, []);
+    fetchPortfolioData();
+  }, [fetchPortfolioData]);
 
   const handleLogout = () => {
     logout();
@@ -88,130 +76,121 @@ export function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#14213D] flex items-center justify-center px-4">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#6BCFCB] mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading dashboard...</p>
+          <div className="animate-spin rounded-full h-14 w-14 border-b-4 border-[#FCA311] mx-auto" />
+          <p className="mt-4 text-[#E5E5E5]">Loading dashboard...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+    <div className="min-h-screen bg-[#14213D] text-white">
+      <header className="bg-black/95 border-b border-[#FCA311] shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-[#001722]">Portfolio CMS</h1>
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between h-24">
+            <div>
+              <p className="text-sm uppercase tracking-[0.3em] text-[#FCA311] mb-1">Admin Panel</p>
+              <h1 className="text-3xl font-black tracking-tight">Portfolio CMS</h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <User className="w-5 h-5 text-gray-500" />
-                <span className="text-gray-700">{user?.username}</span>
+            <div className="flex flex-wrap items-center gap-4 text-[#E5E5E5]">
+              <div className="flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 border border-white/10">
+                <User className="w-5 h-5 text-[#FCA311]" />
+                <span>{user?.username}</span>
               </div>
               <button
                 onClick={handleLogout}
-                className="flex items-center space-x-2 text-gray-500 hover:text-red-600 transition-colors"
+                className="inline-flex items-center gap-2 rounded-full border border-[#FCA311] bg-[#FCA311] px-4 py-2 text-sm font-semibold text-[#14213D] transition hover:bg-[#e69b04]"
               >
-                <LogOut className="w-5 h-5" />
-                <span>Logout</span>
+                <LogOut className="w-4 h-4" />
+                Logout
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Welcome Section */}
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-[#001722] mb-2">
-            Welcome back, {user?.username}!
-          </h2>
-          <p className="text-gray-600">
-            Manage your portfolio content from this central dashboard
-          </p>
-        </div>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-xl">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="text-sm uppercase tracking-[0.35em] text-[#FCA311] mb-2">Welcome back</p>
+              <h2 className="text-4xl font-extrabold text-white">Hello, {user?.username}.</h2>
+              <p className="mt-3 max-w-2xl text-[#E5E5E5]">
+                This dashboard shows your portfolio content counts and quick links into the CMS sections.
+              </p>
+            </div>
+            <div className="rounded-3xl bg-[#E5E5E5]/10 px-6 py-5 text-right text-[#FCA311] border border-white/10">
+              <p className="text-sm uppercase tracking-[0.35em]">Current Platform</p>
+              <p className="mt-3 text-2xl font-semibold">Admin CMS</p>
+            </div>
+          </div>
+        </section>
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <section className="mt-10 grid gap-6 lg:grid-cols-3">
           {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <button
+              <Link
                 key={stat.title}
-                onClick={() => navigate(stat.path)}
-                className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow text-left group"
+                to={stat.path}
+                className="group rounded-3xl border border-white/10 bg-[#E5E5E5] p-6 text-[#14213D] shadow-[0_20px_60px_rgba(0,0,0,0.18)] transition hover:-translate-y-1 hover:border-[#FCA311]"
               >
-                <div className="flex items-center justify-between mb-4">
-                  <div className={`${stat.color} rounded-lg p-3 text-white`}>
-                    <Icon className="w-6 h-6" />
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#14213D] text-[#FCA311] shadow-inner">
+                    <Icon className="h-6 w-6" />
                   </div>
-                  <span className="text-2xl font-bold text-gray-900">{stat.count}</span>
+                  <span className="text-4xl font-extrabold">{stat.count}</span>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-[#6BCFCB] transition-colors">
-                  {stat.title}
-                </h3>
-                <p className="text-sm text-gray-500 mt-1">
-                  Click to manage
-                </p>
-              </button>
+                <h3 className="text-xl font-semibold">{stat.title}</h3>
+                <p className="mt-2 text-sm text-[#475569]">Manage {stat.title.toLowerCase()} and update content.</p>
+              </Link>
             );
           })}
-        </div>
+        </section>
 
-        {/* Quick Edit Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* About Section */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">About Information</h3>
-              <button
-                onClick={() => navigate('/admin/about')}
-                className="text-[#6BCFCB] hover:text-[#5bbfbb] text-sm font-medium"
+        <section className="mt-10 grid gap-6 lg:grid-cols-2">
+          <div className="rounded-[32px] border border-white/10 bg-white p-6 text-[#14213D] shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
+            <div className="flex items-center justify-between mb-5">
+              <div>
+                <h3 className="text-2xl font-bold">About</h3>
+                <p className="mt-2 text-sm text-[#475569]">Overview of your personal profile details.</p>
+              </div>
+              <Link
+                to="/admin/about"
+                className="rounded-full border border-[#14213D] bg-[#FCA311] px-4 py-2 text-sm font-semibold text-[#14213D] transition hover:bg-[#e69b04]"
               >
                 Edit
-              </button>
+              </Link>
             </div>
-            <div className="space-y-2">
-              <p className="text-sm text-gray-600">
-                <span className="font-medium">Name:</span> {about?.name || 'Not set'}
-              </p>
-              <p className="text-sm text-gray-600">
-                <span className="font-medium">Title:</span> {about?.title || 'Not set'}
-              </p>
-              <p className="text-sm text-gray-600">
-                <span className="font-medium">Email:</span> {about?.email || 'Not set'}
-              </p>
+            <div className="space-y-3 text-sm">
+              <p><span className="font-semibold">Name:</span> {about?.name || 'Not set'}</p>
+              <p><span className="font-semibold">Title:</span> {about?.title || 'Not set'}</p>
+              <p><span className="font-semibold">Email:</span> {about?.email || 'Not set'}</p>
             </div>
           </div>
 
-          {/* Contact Section */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Contact Information</h3>
-              <button
-                onClick={() => navigate('/admin/contact')}
-                className="text-[#6BCFCB] hover:text-[#5bbfbb] text-sm font-medium"
+          <div className="rounded-[32px] border border-white/10 bg-white p-6 text-[#14213D] shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
+            <div className="flex items-center justify-between mb-5">
+              <div>
+                <h3 className="text-2xl font-bold">Contact</h3>
+                <p className="mt-2 text-sm text-[#475569]">Quick access to your contact information.</p>
+              </div>
+              <Link
+                to="/admin/contact"
+                className="rounded-full border border-[#14213D] bg-[#FCA311] px-4 py-2 text-sm font-semibold text-[#14213D] transition hover:bg-[#e69b04]"
               >
                 Edit
-              </button>
+              </Link>
             </div>
-            <div className="space-y-2">
-              <p className="text-sm text-gray-600">
-                <span className="font-medium">Email:</span> {contact?.email || 'Not set'}
-              </p>
-              <p className="text-sm text-gray-600">
-                <span className="font-medium">Phone:</span> {contact?.phone || 'Not set'}
-              </p>
-              <p className="text-sm text-gray-600">
-                <span className="font-medium">Location:</span> {contact?.location || 'Not set'}
-              </p>
+            <div className="space-y-3 text-sm">
+              <p><span className="font-semibold">Email:</span> {contact?.email || 'Not set'}</p>
+              <p><span className="font-semibold">Phone:</span> {contact?.phone || 'Not set'}</p>
+              <p><span className="font-semibold">Location:</span> {contact?.location || 'Not set'}</p>
             </div>
           </div>
-        </div>
+        </section>
       </main>
     </div>
   );
