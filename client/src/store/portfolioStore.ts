@@ -163,24 +163,30 @@ export const usePortfolioStore = create<PortfolioStore>()(
           if (!response.ok) {
             throw new Error('Failed to fetch portfolio data');
           }
-          const data = await response.json();
-          console.log('Received data:', data);
-          
-          // Set all data in store
+
+          const result = await response.json();
+          console.log('Received portfolio response:', result);
+
+          if (!result.success) {
+            throw new Error(result.message || 'Failed to load portfolio data');
+          }
+
+          const portfolioData = result.data ?? {};
+
           set({
-            about: data.about,
-            skills: data.skills,
-            experience: data.experience,
-            education: data.education,
-            research: data.research,
-            achievements: data.achievements,
-            contact: data.contact,
+            about: portfolioData.about ?? initialState.about,
+            skills: portfolioData.skills ?? initialState.skills,
+            experience: portfolioData.experience ?? initialState.experience,
+            education: portfolioData.education ?? initialState.education,
+            research: portfolioData.research ?? initialState.research,
+            achievements: portfolioData.achievements ?? initialState.achievements,
+            contact: portfolioData.contact ?? initialState.contact,
             loading: false,
           });
         } catch (error) {
-          set({ 
+          set({
             error: error instanceof Error ? error.message : 'Failed to fetch portfolio data',
-            loading: false 
+            loading: false,
           });
         }
       },

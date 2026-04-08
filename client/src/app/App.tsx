@@ -14,6 +14,10 @@ import { useAdminStore } from '../store/adminStore';
 import { Login } from '../pages/admin/Login';
 import { Dashboard } from '../pages/admin/Dashboard';
 import { Skills as SkillsAdmin } from '../pages/admin/Skills';
+import { Experience as ExperienceAdmin } from '../pages/admin/Experience';
+import { Education as EducationAdmin } from '../pages/admin/Education';
+import { Research as ResearchAdmin } from '../pages/admin/Research';
+import { Achievements as AchievementsAdmin } from '../pages/admin/Achievements';
 import { AdminSection } from '../pages/admin/AdminSection';
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
@@ -84,26 +88,10 @@ export default function App() {
           }
         />
         <Route
-          path="/admin/about"
-          element={
-            <ProtectedRoute>
-              <AdminSection />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/contact"
-          element={
-            <ProtectedRoute>
-              <AdminSection />
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="/admin/experience"
           element={
             <ProtectedRoute>
-              <AdminSection />
+              <ExperienceAdmin />
             </ProtectedRoute>
           }
         />
@@ -111,7 +99,7 @@ export default function App() {
           path="/admin/education"
           element={
             <ProtectedRoute>
-              <AdminSection />
+              <EducationAdmin />
             </ProtectedRoute>
           }
         />
@@ -119,7 +107,7 @@ export default function App() {
           path="/admin/research"
           element={
             <ProtectedRoute>
-              <AdminSection />
+              <ResearchAdmin />
             </ProtectedRoute>
           }
         />
@@ -127,7 +115,7 @@ export default function App() {
           path="/admin/achievements"
           element={
             <ProtectedRoute>
-              <AdminSection />
+              <AchievementsAdmin />
             </ProtectedRoute>
           }
         />

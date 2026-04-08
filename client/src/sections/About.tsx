@@ -1,50 +1,54 @@
 export function About() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-24 bg-gradient-to-br from-[#E8F8F4] via-[#F5FCFA] to-[#FFF4EB]">
       <div className="container mx-auto px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="mb-4 text-center text-[#001722]">About Me</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#6BCFCB] to-[#FE580B] mx-auto mb-12"></div>
-
-          <div className="space-y-6 text-gray-700 leading-relaxed text-lg">
-            <p>
-              With an <span className="text-[#084A48] font-semibold">MSc in Structural Engineering from Jimma University (GPA 3.91)</span> and over six years
-              of university-level teaching experience, I have established myself as a technical leader
-              in Ethiopia's civil engineering education sector. My academic foundation, strengthened by
-              a BSc in Civil Engineering (GPA 3.74), has enabled me to contribute meaningfully to both
-              theoretical advancement and practical infrastructure development.
+        <div className="grid gap-12 lg:grid-cols-[0.95fr_1fr] items-center max-w-6xl mx-auto">
+          <div className="space-y-6">
+            <p className="text-sm uppercase tracking-[0.35em] text-[#6BCFCB]">About</p>
+            <h2 className="text-4xl md:text-5xl font-semibold text-[#001722]">Engineering Leadership with Research-Driven Impact</h2>
+            <p className="text-lg text-[#084A48] max-w-3xl leading-relaxed">
+              I bring a rare combination of academic leadership, structural engineering expertise, and hands-on infrastructure delivery. My work spans university-level teaching, curriculum innovation, advanced research, and project execution across Ethiopia.
             </p>
 
-            <p>
-              As <span className="text-[#FE580B] font-semibold">Head of the Civil Engineering Department for four years</span>, I led curriculum innovation,
-              faculty development, and strategic academic initiatives that elevated program quality
-              and relevance. My leadership introduced cutting-edge technologies including Building
-              Information Modeling (BIM) and sustainable design principles, positioning graduates
-              to meet contemporary industry demands.
-            </p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="rounded-[24px] border border-[#6BCFCB]/20 bg-white/90 p-6 shadow-xl shadow-[#6BCFCB]/10">
+                <p className="text-sm uppercase tracking-[0.35em] text-[#084A48]/70 mb-2">Degree</p>
+                <p className="text-xl font-semibold text-[#001722]">MSc Structural Engineering</p>
+                <p className="mt-2 text-sm text-gray-600">Jimma University · GPA 3.91</p>
+              </div>
+              <div className="rounded-[24px] border border-[#FE580B]/20 bg-white/90 p-6 shadow-xl shadow-[#FE580B]/10">
+                <p className="text-sm uppercase tracking-[0.35em] text-[#084A48]/70 mb-2">Role</p>
+                <p className="text-xl font-semibold text-[#001722]">Academic Department Head</p>
+                <p className="mt-2 text-sm text-[#084A48]">Led curriculum strategy, faculty growth, and research programs.</p>
+              </div>
+            </div>
+          </div>
 
-            <p>
-              My technical expertise spans structural analysis, reinforced concrete design, steel and
-              timber structures, and bridge engineering. Proficient in industry-standard tools including
-              <span className="text-[#084A48] font-semibold"> AutoCAD, ETABS, SAP2000, Abaqus, and BIM platforms</span>, I integrate computational modeling
-              with finite element analysis to solve complex structural challenges. My research on
-              encased composite column performance under cyclic loads, <span className="text-[#FE580B] font-semibold">published in Elsevier's Results
-              in Engineering</span>, demonstrates the intersection of theoretical rigor and engineering application.
-            </p>
+          <div className="rounded-[32px] border border-[#6BCFCB]/15 bg-[#FFFFFF]/90 p-10 shadow-[0_60px_120px_-70px_rgba(6,101,84,0.35)]">
+            <div className="space-y-6">
+              <div className="rounded-3xl border border-[#6BCFCB]/15 bg-[#F8FFFC] p-6">
+                <p className="text-sm uppercase tracking-[0.35em] text-[#084A48]/70 mb-3">Core expertise</p>
+                <ul className="space-y-3 text-[#084A48]">
+                  <li>Structural analysis, reinforced concrete design, and bridge engineering</li>
+                  <li>Finite element modeling with Abaqus, ETABS, SAP2000, and BIM</li>
+                  <li>Curriculum development, faculty mentorship, and academic leadership</li>
+                </ul>
+              </div>
 
-            <p>
-              Beyond academia, I have contributed to construction project execution through contract
-              administration, bid evaluation, site supervision, and commissioning—ensuring that
-              theoretical knowledge translates into built infrastructure. This dual engagement in
-              education and construction fosters a comprehensive understanding of structural engineering's
-              full lifecycle, from concept to commissioning.
-            </p>
+              <div className="rounded-3xl border border-[#FE580B]/15 bg-[#FFF7EE] p-6">
+                <p className="text-sm uppercase tracking-[0.35em] text-[#084A48]/70 mb-3">Biggest impact</p>
+                <p className="text-gray-700 leading-relaxed">
+                  Published peer-reviewed research on encased composite columns, blending theoretical insight with practical design guidance for earthquake-resistant structures.
+                </p>
+              </div>
 
-            <p className="text-[#001722] font-medium">
-              My commitment centers on measurable impact: enhancing education quality, advancing
-              research that informs practice, and developing infrastructure solutions that serve
-              Ethiopia's growth trajectory.
-            </p>
+              <div className="rounded-3xl border border-[#6BCFCB]/15 bg-white p-6">
+                <p className="text-sm uppercase tracking-[0.35em] text-[#084A48]/70 mb-3">Professional value</p>
+                <p className="text-gray-700 leading-relaxed">
+                  I help institutions and engineering teams convert academic excellence into real-world infrastructure performance and sustainable educational outcomes.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

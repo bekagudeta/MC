@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Edit, Trash2, Save, X } from 'lucide-react';
 import { usePortfolioStore } from '../../store/portfolioStore';
@@ -12,6 +12,11 @@ export function Skills() {
     category: '',
     items: [''],
   });
+
+  const totalSkills = useMemo(
+    () => skills.reduce((count, category) => count + (category.items?.length || 0), 0),
+    [skills]
+  );
 
   useEffect(() => {
     const loadSkills = async () => {
@@ -127,189 +132,226 @@ export function Skills() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#6BCFCB] mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading skills...</p>
+          <div className="animate-spin rounded-full h-14 w-14 border-b-4 border-sky-500 mx-auto"></div>
+          <p className="mt-4 text-slate-500">Loading skills...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
+    <div className="min-h-screen bg-slate-50">
+      <header className="bg-white shadow-sm border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
               <button
                 onClick={() => navigate('/admin/dashboard')}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-slate-500 hover:text-slate-700 font-medium"
               >
                 ← Back to Dashboard
               </button>
-              <h1 className="text-2xl font-bold text-[#001722]">Manage Skills</h1>
+              <h1 className="mt-4 text-3xl font-bold text-slate-900">Skills CMS</h1>
+              <p className="mt-2 text-sm text-slate-600 max-w-2xl">
+                Manage your portfolio skill categories quickly and keep the UI aligned with the live site.
+              </p>
+            </div>
+            <div className="grid w-full grid-cols-2 gap-4 sm:w-auto sm:grid-cols-2">
+              <div className="rounded-3xl border border-slate-200 bg-slate-100 p-4 text-center">
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Categories</p>
+                <p className="mt-3 text-3xl font-semibold text-slate-900">{skills.length}</p>
+              </div>
+              <div className="rounded-3xl border border-slate-200 bg-slate-100 p-4 text-center">
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Total skills</p>
+                <p className="mt-3 text-3xl font-semibold text-slate-900">{totalSkills}</p>
+              </div>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Error Message */}
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
+          <div className="rounded-3xl border border-red-200 bg-red-50 px-4 py-4 text-red-700 shadow-sm mb-8">
             {error}
           </div>
         )}
 
-        {/* Add New Category */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Add New Skill Category</h2>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Category Name
-              </label>
-              <input
-                type="text"
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6BCFCB] focus:border-transparent"
-                placeholder="e.g., Programming Languages, Tools, etc."
-              />
+        <div className="grid gap-8 xl:grid-cols-[380px_1fr]">
+          <section className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h2 className="text-xl font-semibold text-slate-900">Add category</h2>
+                <p className="mt-1 text-sm text-slate-500">
+                  Create a new skill category and add the most relevant skills for your portfolio.
+                </p>
+              </div>
             </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Skills
-              </label>
-              {formData.items.map((item, index) => (
-                <div key={index} className="flex gap-2 mb-2">
-                  <input
-                    type="text"
-                    value={item}
-                    onChange={(e) => handleUpdateNewItem(index, e.target.value)}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6BCFCB] focus:border-transparent"
-                    placeholder="Enter a skill"
-                  />
-                  {formData.items.length > 1 && (
-                    <button
-                      onClick={() => handleRemoveNewItem(index)}
-                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
-                  )}
+
+            <div className="mt-6 space-y-5">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">Category name</label>
+                <input
+                  type="text"
+                  value={formData.category}
+                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200"
+                  placeholder="e.g. Technical Skills"
+                />
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between">
+                  <label className="block text-sm font-medium text-slate-700">Skills</label>
+                  <button
+                    onClick={handleAddNewItem}
+                    className="text-sky-600 hover:text-sky-700 text-sm font-semibold"
+                  >
+                    + Add skill
+                  </button>
                 </div>
-              ))}
+                <div className="mt-3 space-y-3">
+                  {formData.items.map((item, index) => (
+                    <div key={index} className="flex gap-2">
+                      <input
+                        type="text"
+                        value={item}
+                        onChange={(e) => handleUpdateNewItem(index, e.target.value)}
+                        className="flex-1 rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200"
+                        placeholder="Enter skill name"
+                      />
+                      {formData.items.length > 1 && (
+                        <button
+                          onClick={() => handleRemoveNewItem(index)}
+                          className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-red-50 text-red-600 transition hover:bg-red-100"
+                        >
+                          <X className="h-4 w-4" />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               <button
-                onClick={handleAddNewItem}
-                className="text-[#6BCFCB] hover:text-[#5bbfbb] text-sm font-medium"
+                onClick={handleAddCategory}
+                className="inline-flex items-center justify-center rounded-3xl bg-sky-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-700"
               >
-                + Add Skill
+                Save category
               </button>
             </div>
+          </section>
 
-            <button
-              onClick={handleAddCategory}
-              className="bg-[#6BCFCB] hover:bg-[#5bbfbb] text-[#001722] font-medium py-2 px-4 rounded-lg transition-colors"
-            >
-              Add Category
-            </button>
-          </div>
-        </div>
-
-        {/* Existing Categories */}
-        <div className="space-y-6">
-          {skills.map((category, categoryIndex) => (
-            <div key={category._id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <div className="flex justify-between items-start mb-4">
-                {editingCategory === category._id ? (
-                  <input
-                    type="text"
-                    value={category.category}
-                    onChange={(e) => {
-                      const updatedSkills = [...skills];
-                      updatedSkills[categoryIndex].category = e.target.value;
-                      setSkills(updatedSkills);
-                    }}
-                    className="text-lg font-semibold px-2 py-1 border border-gray-300 rounded"
-                  />
-                ) : (
-                  <h3 className="text-lg font-semibold text-gray-900">{category.category}</h3>
-                )}
-                
-                <div className="flex space-x-2">
-                  {editingCategory === category._id ? (
-                    <>
-                      <button
-                        onClick={() => category._id && handleUpdateCategory(category._id)}
-                        className="p-2 text-green-600 hover:bg-green-50 rounded-lg"
-                      >
-                        <Save className="w-5 h-5" />
-                      </button>
-                      <button
-                        onClick={() => setEditingCategory(null)}
-                        className="p-2 text-gray-600 hover:bg-gray-50 rounded-lg"
-                      >
-                        <X className="w-5 h-5" />
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button
-                        onClick={() => category._id && setEditingCategory(category._id)}
-                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
-                      >
-                        <Edit className="w-5 h-5" />
-                      </button>
-                      <button
-                        onClick={() => category._id && handleDeleteCategory(category._id)}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </button>
-                    </>
-                  )}
-                </div>
+          <section className="space-y-6">
+            {skills.length === 0 ? (
+              <div className="rounded-[32px] border border-dashed border-slate-300 bg-white/80 p-10 text-center text-slate-500 shadow-sm">
+                <p className="text-lg font-semibold text-slate-900">No skill categories yet</p>
+                <p className="mt-2 text-sm">Start by creating a category on the left to fill your portfolio skills section.</p>
               </div>
+            ) : (
+              <div className="grid gap-6">
+                {skills.map((category, categoryIndex) => (
+                  <div
+                    key={category._id || `${category.category}-${categoryIndex}`}
+                    className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm"
+                  >
+                    <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                      <div>
+                        {editingCategory === category._id ? (
+                          <input
+                            type="text"
+                            value={category.category}
+                            onChange={(e) => {
+                              const updatedSkills = [...(skills || [])];
+                              updatedSkills[categoryIndex].category = e.target.value;
+                              setSkills(updatedSkills);
+                            }}
+                            className="w-full rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200"
+                          />
+                        ) : (
+                          <h2 className="text-xl font-semibold text-slate-900">{category.category}</h2>
+                        )}
+                        <p className="mt-2 text-sm text-slate-500">{category.items?.length ?? 0} skills</p>
+                      </div>
 
-              <div className="space-y-2">
-                {category.items.map((item, itemIndex) => (
-                  <div key={itemIndex} className="flex items-center gap-2">
-                    {editingCategory === category._id ? (
-                      <>
-                        <input
-                          type="text"
-                          value={item}
-                          onChange={(e) => handleUpdateSkillItem(categoryIndex, itemIndex, e.target.value)}
-                          className="flex-1 px-3 py-1 border border-gray-300 rounded"
-                        />
+                      <div className="flex flex-wrap items-center gap-2">
+                        {editingCategory === category._id ? (
+                          <>
+                            <button
+                              onClick={() => category._id && handleUpdateCategory(category._id)}
+                              className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 transition hover:bg-emerald-100"
+                            >
+                              <Save className="h-4 w-4" />
+                              Save
+                            </button>
+                            <button
+                              onClick={() => setEditingCategory(null)}
+                              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-600 transition hover:bg-slate-50"
+                            >
+                              <X className="h-4 w-4" />
+                              Cancel
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              onClick={() => category._id && setEditingCategory(category._id)}
+                              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 transition hover:bg-slate-50"
+                            >
+                              <Edit className="h-4 w-4" />
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => category._id && handleDeleteCategory(category._id)}
+                              className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-700 transition hover:bg-red-100"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                              Remove
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="mt-6 grid gap-3">
+                      {category.items?.map((item, itemIndex) => (
+                        <div key={itemIndex} className="flex flex-wrap items-center gap-3 rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3">
+                          {editingCategory === category._id ? (
+                            <>
+                              <input
+                                type="text"
+                                value={item}
+                                onChange={(e) => handleUpdateSkillItem(categoryIndex, itemIndex, e.target.value)}
+                                className="flex-1 rounded-3xl border border-transparent bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200"
+                              />
+                              <button
+                                onClick={() => handleRemoveSkillItem(categoryIndex, itemIndex)}
+                                className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-red-50 text-red-600 transition hover:bg-red-100"
+                              >
+                                <X className="h-4 w-4" />
+                              </button>
+                            </>
+                          ) : (
+                            <span className="rounded-3xl bg-white px-4 py-2 text-sm text-slate-700 shadow-sm">{item}</span>
+                          )}
+                        </div>
+                      ))}
+                      {editingCategory === category._id && (
                         <button
-                          onClick={() => handleRemoveSkillItem(categoryIndex, itemIndex)}
-                          className="p-1 text-red-600 hover:bg-red-50 rounded"
+                          onClick={() => handleAddSkillItem(categoryIndex)}
+                          className="self-start rounded-3xl bg-slate-100 px-4 py-2 text-sm font-medium text-sky-600 transition hover:bg-slate-200"
                         >
-                          <X className="w-4 h-4" />
+                          + Add skill
                         </button>
-                      </>
-                    ) : (
-                      <span className="px-3 py-1 bg-gray-100 rounded-lg text-sm">{item}</span>
-                    )}
+                      )}
+                    </div>
                   </div>
                 ))}
-                {editingCategory === category._id && (
-                  <button
-                    onClick={() => handleAddSkillItem(categoryIndex)}
-                    className="text-[#6BCFCB] hover:text-[#5bbfbb] text-sm font-medium"
-                  >
-                    + Add Skill
-                  </button>
-                )}
               </div>
-            </div>
-          ))}
+            )}
+          </section>
         </div>
       </main>
     </div>

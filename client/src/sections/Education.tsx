@@ -1,200 +1,167 @@
-import { GraduationCap, Award, CheckCircle } from 'lucide-react';
+import { Award } from 'lucide-react';
+
+const educationHistory = [
+  {
+    title: 'Master of Science in Structural Engineering',
+    institution: 'Jimma University, Ethiopia',
+    period: 'Oct 2017 - Feb 2020',
+    gpa: '3.91 / 4.00',
+    level: 'EQF Level 8',
+    thesis: 'The effects of different steel sections on the performance of encased composite columns under cyclic lateral loads',
+    summary:
+      'Advanced study in structural analysis, structural design, finite element modeling, and earthquake-resistant composite systems using Abaqus, ETABS, SAP2000, and BIM.',
+    accent: 'from-[#6BCFCB]/10 to-[#084A48]/10',
+  },
+  {
+    title: 'Bachelor of Science in Civil Engineering',
+    institution: 'Jimma University, Ethiopia',
+    period: 'Jun 2011 - Aug 2016',
+    gpa: '3.74 / 4.00',
+    level: 'EQF Level 8',
+    thesis: 'Design and Analysis of basement plus ground plus six floor mixed use building',
+    summary:
+      'Comprehensive foundation in engineering mechanics, structural analysis, wind and earthquake load consideration, and sustainable design.',
+    accent: 'from-[#6BCFCB]/10 to-[#084A48]/10',
+  },
+  {
+    title: 'Higher Diploma Program in Teaching Education',
+    institution: 'Haramaya University, Ethiopia',
+    period: 'Oct 2020 - Oct 2021',
+    level: 'EQF Level 7',
+    summary:
+      'Professional teaching qualification focused on instructional design, classroom leadership, and higher education pedagogy.',
+    accent: 'from-[#FE580B]/10 to-[#084A48]/10',
+  },
+];
+
+const certificationHighlights = [
+  {
+    title: 'Specification and BOQ Preparation Training',
+    issuer: 'Ethiopian Association of Civil Engineers (EACE)',
+    period: 'Dec 8-15, 2024',
+    level: 'EQF 7',
+    description:
+      'Project documentation, quantity takeoff, specification writing, and cost estimation aligned with professional engineering standards.',
+  },
+  {
+    title: 'Resilience Earthquake Safety and Design Training',
+    issuer: 'Ethiopian Association of Civil Engineers (EACE)',
+    period: 'Oct 8-15, 2024',
+    level: 'EQF 7',
+    description:
+      'Structural safety, risk assessment, emergency planning, and sustainable retrofit design for earthquake-prone regions.',
+  },
+  {
+    title: 'Civil and Hydraulics Laboratory Training',
+    issuer: 'Arba-Minch University',
+    period: 'Jun 8-21, 2021',
+    level: 'EQF 7',
+    description:
+      'Experimental proficiency, data analysis, safety practices, and applied hydraulics laboratory techniques.',
+  },
+  {
+    title: 'IELTS Training',
+    issuer: 'Oda Bultum University',
+    period: 'Oct 2024 - Jun 2025',
+    level: 'EQF 7',
+    description:
+      'Focused language development to support international communication and scholarship opportunities.',
+  },
+];
 
 export function Education() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-gradient-to-br from-[#F4FFFB] via-[#F9FEFD] to-[#FFF6ED]">
       <div className="container mx-auto px-6">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="mb-4 text-center text-[#001722]">Education & Certifications</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#6BCFCB] to-[#FE580B] mx-auto mb-16"></div>
+        <div className="max-w-5xl mx-auto text-center mb-12">
+          <p className="text-sm uppercase tracking-[0.35em] text-[#6BCFCB] mb-4">Education & Certification</p>
+          <h2 className="text-4xl md:text-5xl font-semibold text-[#001722]">Academic Achievements Built for Leadership</h2>
+          <p className="mt-4 text-[#084A48] max-w-3xl mx-auto">
+            A curated record of graduate and undergraduate study, instructional qualifications, and professional trainings that support both engineering excellence and education leadership.
+          </p>
+        </div>
 
-          <div className="space-y-8 mb-16">
-            <div className="bg-gradient-to-br from-[#6BCFCB]/10 to-[#084A48]/10 p-8 rounded-xl border-2 border-[#6BCFCB]/40 shadow-lg">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-[#6BCFCB]/30 rounded-lg flex-shrink-0">
-                  <GraduationCap className="text-[#084A48]" size={32} />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-[#001722] mb-2">Master of Science in Structural Engineering</h3>
-                  <p className="text-[#FE580B] font-semibold mb-3">Jimma University, Ethiopia</p>
-                  <div className="flex flex-wrap gap-4 mb-4">
-                    <div className="px-5 py-2 bg-white rounded-full border border-[#6BCFCB]/40 shadow-sm">
-                      <span className="text-sm text-gray-600">Period: </span>
-                      <span className="text-[#084A48] font-bold">Oct 2017 - Feb 2020</span>
+        <div className="grid gap-8 lg:grid-cols-[1.25fr_0.85fr]">
+          <div className="space-y-6">
+            {educationHistory.map((item, index) => (
+              <div key={index} className="overflow-hidden rounded-[28px] border border-[#6BCFCB]/15 shadow-xl transition-transform hover:-translate-y-1">
+                <div className={`bg-gradient-to-br ${item.accent} p-6`}>
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-sm uppercase tracking-[0.35em] text-[#084A48]/80">Academic milestone</p>
+                      <h3 className="mt-3 text-2xl font-semibold text-[#001722]">{item.title}</h3>
                     </div>
-                    <div className="px-5 py-2 bg-white rounded-full border border-[#6BCFCB]/40 shadow-sm">
-                      <span className="text-sm text-gray-600">GPA: </span>
-                      <span className="text-[#084A48] font-bold">3.91/4.00</span>
-                    </div>
-                    <div className="px-5 py-2 bg-[#FE580B] text-white rounded-full font-semibold shadow-sm">
-                      <span className="text-sm">EQF Level 8</span>
+                    <div className="rounded-3xl bg-white/90 px-4 py-2 text-sm font-semibold text-[#084A48] shadow-sm">
+                      {item.level}
                     </div>
                   </div>
-                  <p className="text-gray-700 leading-relaxed mb-3">
-                    <strong>Thesis:</strong> "The effects of different steel sections on the performance of encased composite columns under cyclic lateral loads"
-                  </p>
-                  <p className="text-gray-700 leading-relaxed">
-                    Advanced study in structural analysis, engineering mechanics, structural design, and finite element analysis. 
-                    Expertise in CAD, Abaqus, ETABS, SAP2000, and BIM. Research focused on fully encased composite columns 
-                    subjected to horizontal cyclic loads using finite element simulation.
-                  </p>
                 </div>
-              </div>
-            </div>
-
-            <div className="bg-gray-50 p-8 rounded-xl border-2 border-gray-200 hover:border-[#6BCFCB]/40 transition-all shadow-md">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-gray-200 rounded-lg flex-shrink-0">
-                  <GraduationCap className="text-[#084A48]" size={32} />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-[#001722] mb-2">Bachelor of Science in Civil Engineering</h3>
-                  <p className="text-[#084A48] font-semibold mb-3">Jimma University, Ethiopia</p>
-                  <div className="flex flex-wrap gap-4 mb-4">
-                    <div className="px-5 py-2 bg-white rounded-full border border-gray-300 shadow-sm">
-                      <span className="text-sm text-gray-600">Period: </span>
-                      <span className="text-[#084A48] font-bold">Jun 2011 - Aug 2016</span>
-                    </div>
-                    <div className="px-5 py-2 bg-white rounded-full border border-gray-300 shadow-sm">
-                      <span className="text-sm text-gray-600">GPA: </span>
-                      <span className="text-[#084A48] font-bold">3.74/4.00</span>
-                    </div>
-                    <div className="px-5 py-2 bg-[#6BCFCB] text-[#001722] rounded-full font-semibold shadow-sm">
-                      <span className="text-sm">EQF Level 8</span>
-                    </div>
+                <div className="space-y-5 bg-white/95 p-8">
+                  <div className="flex flex-wrap items-center gap-3 text-sm text-[#084A48]">
+                    <span className="rounded-full bg-[#6BCFCB]/10 px-3 py-1 text-[#084A48] font-medium">{item.institution}</span>
+                    <span className="font-semibold text-[#FE580B]">{item.period}</span>
                   </div>
-                  <p className="text-gray-700 leading-relaxed mb-3">
-                    <strong>Thesis:</strong> "Design and Analysis of basement plus ground plus six floor mixed use building"
-                  </p>
-                  <p className="text-gray-700 leading-relaxed">
-                    Comprehensive foundation in problem-solving, project management, mathematics and physics, 
-                    structural analysis and design, wind and earthquake load considerations, and load combinations.
-                    Recognized as Best Pre-Engineering Student Award winner in 2012.
-                  </p>
+                  {item.gpa ? (
+                    <div className="flex flex-wrap gap-3 text-sm text-[#084A48]">
+                      <span className="rounded-full border border-[#6BCFCB]/20 px-3 py-2 bg-[#F5FEFC]">GPA: {item.gpa}</span>
+                    </div>
+                  ) : null}
+                  {item.thesis ? (
+                    <p className="text-[#084A48] leading-relaxed">
+                      <strong>Thesis:</strong> {item.thesis}
+                    </p>
+                  ) : null}
+                  <p className="text-[#084A48] leading-relaxed">{item.summary}</p>
                 </div>
               </div>
-            </div>
-
-            <div className="bg-gray-50 p-8 rounded-xl border-2 border-gray-200 hover:border-[#6BCFCB]/40 transition-all shadow-md">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-gray-200 rounded-lg flex-shrink-0">
-                  <GraduationCap className="text-[#084A48]" size={32} />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-[#001722] mb-2">Higher Diploma Program in Teaching Education</h3>
-                  <p className="text-[#084A48] font-semibold mb-3">Haramaya University, Ethiopia</p>
-                  <div className="flex flex-wrap gap-4 mb-4">
-                    <div className="px-5 py-2 bg-white rounded-full border border-gray-300 shadow-sm">
-                      <span className="text-sm text-gray-600">Period: </span>
-                      <span className="text-[#084A48] font-bold">Oct 2020 - Oct 2021</span>
-                    </div>
-                    <div className="px-5 py-2 bg-[#6BCFCB] text-[#001722] rounded-full font-semibold shadow-sm">
-                      <span className="text-sm">EQF Level 7</span>
-                    </div>
-                  </div>
-                  <p className="text-gray-700 leading-relaxed">
-                    Professional teaching qualification focusing on instructional skills, professionalism and ethics, 
-                    and educational leadership for higher education contexts.
-                  </p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
 
-          <div className="bg-gray-50 p-8 rounded-xl border-2 border-[#FE580B]/20 shadow-lg">
-            <div className="flex items-center gap-3 mb-6">
-              <Award className="text-[#FE580B]" size={32} />
-              <h3 className="text-[#001722]">Professional Certifications & Training</h3>
+          <div className="space-y-6">
+            <div className="rounded-[28px] border border-[#6BCFCB]/20 bg-[#F8FEFD] p-8 shadow-xl">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="rounded-3xl bg-[#6BCFCB]/10 p-3">
+                  <Award className="text-[#084A48]" size={28} />
+                </div>
+                <div>
+                  <p className="text-sm uppercase tracking-[0.35em] text-[#084A48]/70">Certifications</p>
+                  <h3 className="text-2xl font-semibold text-[#001722]">Professional training highlights</h3>
+                </div>
+              </div>
+
+              <div className="space-y-5">
+                {certificationHighlights.map((cert, index) => (
+                  <div key={index} className="rounded-3xl border border-[#6BCFCB]/10 bg-white/95 p-5 shadow-sm">
+                    <div className="flex items-center justify-between gap-4">
+                      <div>
+                        <h4 className="text-[#001722] font-semibold">{cert.title}</h4>
+                        <p className="text-sm text-[#084A48]">{cert.issuer}</p>
+                      </div>
+                      <span className="rounded-full bg-[#FE580B]/10 px-3 py-1 text-sm font-semibold text-[#FE580B]">{cert.level}</span>
+                    </div>
+                    <p className="mt-3 text-sm text-[#084A48]">{cert.description}</p>
+                    <p className="mt-3 text-sm font-medium text-[#084A48]">{cert.period}</p>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="text-[#6BCFCB] flex-shrink-0 mt-1" size={22} />
-                  <div>
-                    <h4 className="text-[#001722] mb-1 font-semibold">Specification and BOQ Preparation Training</h4>
-                    <p className="text-sm text-[#FE580B] font-medium">Ethiopian Association of Civil Engineers (EACE)</p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      <strong>Period:</strong> Dec 8-15, 2024 | <strong>Level:</strong> EQF 7
-                    </p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Understanding project documentation, quantity takeoff, specification writing, 
-                      cost estimation, and professional technical skills
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="text-[#6BCFCB] flex-shrink-0 mt-1" size={22} />
-                  <div>
-                    <h4 className="text-[#001722] mb-1 font-semibold">Resilience Earthquake Safety and Design Training</h4>
-                    <p className="text-sm text-[#FE580B] font-medium">Ethiopian Association of Civil Engineers (EACE)</p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      <strong>Period:</strong> Oct 8-15, 2024 | <strong>Level:</strong> EQF 7
-                    </p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Structural and non-structural safety, risk assessment, emergency planning, 
-                      and design retrofitting techniques
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="text-[#6BCFCB] flex-shrink-0 mt-1" size={22} />
-                  <div>
-                    <h4 className="text-[#001722] mb-1 font-semibold">Civil and Hydraulics Laboratory Training</h4>
-                    <p className="text-sm text-[#FE580B] font-medium">Arba-Minch University</p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      <strong>Period:</strong> Jun 8-21, 2021 | <strong>Level:</strong> EQF 7
-                    </p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Experimental proficiency, data analysis, safety management, 
-                      and application of hydraulic principles
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="text-[#6BCFCB] flex-shrink-0 mt-1" size={22} />
-                  <div>
-                    <h4 className="text-[#001722] mb-1 font-semibold">IELTS Training</h4>
-                    <p className="text-sm text-[#FE580B] font-medium">Oda Bultum University</p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      <strong>Period:</strong> Oct 2024 - Jun 2025 | <strong>Level:</strong> EQF 7
-                    </p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Enhancing classroom English proficiency and increasing scholarship opportunities
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="text-[#6BCFCB] flex-shrink-0 mt-1" size={22} />
-                  <div>
-                    <h4 className="text-[#001722] mb-1 font-semibold">Language Proficiency</h4>
-                    <p className="text-sm text-[#084A48] font-medium">Multi-lingual Capabilities</p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      <strong>Oromo:</strong> Mother tongue<br/>
-                      <strong>English:</strong> C1 Proficient (Listening, Reading, Writing), B2 Independent (Speaking)<br/>
-                      <strong>Amharic:</strong> C2 Proficient (Listening, Reading, Speaking), C1 Proficient (Writing)
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="text-[#6BCFCB] flex-shrink-0 mt-1" size={22} />
-                  <div>
-                    <h4 className="text-[#001722] mb-1 font-semibold">Best Pre-Engineering Student Award</h4>
-                    <p className="text-sm text-[#FE580B] font-medium">Jimma University</p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      <strong>Date:</strong> July 12, 2012<br/>
-                      Recognition for outstanding performance in pre-engineering program
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <div className="rounded-[28px] border border-[#084A48]/10 bg-gradient-to-br from-[#6BCFCB]/10 to-[#084A48]/10 p-8 shadow-xl">
+              <h3 className="text-xl font-semibold text-[#001722] mb-4">Key Learning Outcomes</h3>
+              <ul className="space-y-3 text-[#084A48]">
+                <li className="flex gap-3">
+                  <span className="mt-1 text-[#FE580B]">•</span>
+                  <span>Structural engineering techniques for seismic design, composite systems, and advanced modeling.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="mt-1 text-[#FE580B]">•</span>
+                  <span>Instructional design, curriculum development, and higher education leadership skills.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="mt-1 text-[#FE580B]">•</span>
+                  <span>Professional documentation, laboratory testing, and multidisciplinary collaboration.</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

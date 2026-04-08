@@ -1,5 +1,5 @@
 import { Mail, Phone, MapPin, Linkedin, ExternalLink, Send, CheckCircle } from 'lucide-react';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -11,13 +11,11 @@ export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission (in production, this would send to a backend or email service)
     try {
-      // Create mailto link as fallback
       const mailtoLink = `mailto:mulgeta_mersha@slu.edu.et?subject=${encodeURIComponent(
         formData.subject
       )}&body=${encodeURIComponent(
@@ -42,7 +40,7 @@ export function Contact() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -54,15 +52,14 @@ export function Contact() {
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="mb-4 text-white">Get In Touch</h2>
+            <p className="text-sm uppercase tracking-[0.35em] text-[#6BCFCB] mb-3">Contact</p>
+            <h2 className="mb-4 text-4xl font-semibold text-white">Start the Conversation</h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Open to opportunities in structural engineering research, academic leadership positions,
-              and infrastructure development consultancy.
+              Open to structural engineering research opportunities, academic collaborations, and infrastructure consultancy.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Information */}
             <div className="space-y-6">
               <div>
                 <h3 className="text-2xl font-semibold mb-6 text-[#6BCFCB]">Contact Information</h3>
@@ -70,13 +67,13 @@ export function Contact() {
 
               <a
                 href="mailto:mulgeta_mersha@slu.edu.et"
-                className="bg-[#084A48]/50 p-6 rounded-lg border border-[#6BCFCB]/20 hover:border-[#6BCFCB] transition-all hover:shadow-lg hover:shadow-[#6BCFCB]/20 group block"
+                className="bg-[#084A48]/50 p-6 rounded-3xl border border-[#6BCFCB]/20 hover:border-[#6BCFCB] transition-all hover:shadow-lg hover:shadow-[#6BCFCB]/20 group block"
               >
                 <div className="flex items-center gap-4">
-                  <div className="p-3 bg-[#6BCFCB]/20 rounded-lg group-hover:bg-[#6BCFCB]/30 transition-colors">
+                  <div className="rounded-2xl bg-[#6BCFCB]/20 p-3 group-hover:bg-[#6BCFCB]/30 transition-colors">
                     <Mail className="text-[#6BCFCB]" size={24} />
                   </div>
-                  <div className="text-left">
+                  <div>
                     <p className="text-sm text-gray-400 mb-1">Email</p>
                     <p className="text-white">mulgeta_mersha@slu.edu.et</p>
                   </div>
@@ -85,25 +82,25 @@ export function Contact() {
 
               <a
                 href="tel:+251910074638"
-                className="bg-[#084A48]/50 p-6 rounded-lg border border-[#6BCFCB]/20 hover:border-[#6BCFCB] transition-all hover:shadow-lg hover:shadow-[#6BCFCB]/20 group block"
+                className="bg-[#084A48]/50 p-6 rounded-3xl border border-[#6BCFCB]/20 hover:border-[#6BCFCB] transition-all hover:shadow-lg hover:shadow-[#6BCFCB]/20 group block"
               >
                 <div className="flex items-center gap-4">
-                  <div className="p-3 bg-[#6BCFCB]/20 rounded-lg group-hover:bg-[#6BCFCB]/30 transition-colors">
+                  <div className="rounded-2xl bg-[#6BCFCB]/20 p-3 group-hover:bg-[#6BCFCB]/30 transition-colors">
                     <Phone className="text-[#6BCFCB]" size={24} />
                   </div>
-                  <div className="text-left">
+                  <div>
                     <p className="text-sm text-gray-400 mb-1">Phone</p>
                     <p className="text-white">+251 910 074 638</p>
                   </div>
                 </div>
               </a>
 
-              <div className="bg-[#084A48]/50 p-6 rounded-lg border border-[#6BCFCB]/20">
+              <div className="bg-[#084A48]/50 p-6 rounded-3xl border border-[#6BCFCB]/20">
                 <div className="flex items-center gap-4">
-                  <div className="p-3 bg-[#6BCFCB]/20 rounded-lg">
+                  <div className="rounded-2xl bg-[#6BCFCB]/20 p-3">
                     <MapPin className="text-[#6BCFCB]" size={24} />
                   </div>
-                  <div className="text-left">
+                  <div>
                     <p className="text-sm text-gray-400 mb-1">Location</p>
                     <p className="text-white">Fiche, Ethiopia</p>
                   </div>
@@ -114,13 +111,13 @@ export function Contact() {
                 href="https://www.linkedin.com/in/mulgeta123"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#084A48]/50 p-6 rounded-lg border border-[#6BCFCB]/20 hover:border-[#6BCFCB] transition-all hover:shadow-lg hover:shadow-[#6BCFCB]/20 group block"
+                className="bg-[#084A48]/50 p-6 rounded-3xl border border-[#6BCFCB]/20 hover:border-[#6BCFCB] transition-all hover:shadow-lg hover:shadow-[#6BCFCB]/20 group block"
               >
                 <div className="flex items-center gap-4">
-                  <div className="p-3 bg-[#6BCFCB]/20 rounded-lg group-hover:bg-[#6BCFCB]/30 transition-colors">
+                  <div className="rounded-2xl bg-[#6BCFCB]/20 p-3 group-hover:bg-[#6BCFCB]/30 transition-colors">
                     <Linkedin className="text-[#6BCFCB]" size={24} />
                   </div>
-                  <div className="text-left">
+                  <div>
                     <p className="text-sm text-gray-400 mb-1">LinkedIn</p>
                     <p className="text-white flex items-center gap-2">
                       Connect with me
@@ -131,8 +128,7 @@ export function Contact() {
               </a>
             </div>
 
-            {/* Contact Form */}
-            <div className="bg-[#084A48]/50 p-8 rounded-lg border border-[#6BCFCB]/20">
+            <div className="bg-[#084A48]/50 p-8 rounded-3xl border border-[#6BCFCB]/20 shadow-xl">
               <h3 className="text-2xl font-semibold mb-6 text-[#6BCFCB]">Send a Message</h3>
 
               <form onSubmit={handleSubmit} className="space-y-5">
@@ -147,7 +143,7 @@ export function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-[#001722]/50 border border-[#6BCFCB]/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#6BCFCB] focus:ring-2 focus:ring-[#6BCFCB]/20 transition-all"
+                    className="w-full rounded-2xl border border-[#6BCFCB]/30 bg-[#001722]/50 px-4 py-3 text-white placeholder-gray-500 transition focus:border-[#6BCFCB] focus:outline-none focus:ring-2 focus:ring-[#6BCFCB]/20"
                     placeholder="John Doe"
                   />
                 </div>
@@ -163,7 +159,7 @@ export function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-[#001722]/50 border border-[#6BCFCB]/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#6BCFCB] focus:ring-2 focus:ring-[#6BCFCB]/20 transition-all"
+                    className="w-full rounded-2xl border border-[#6BCFCB]/30 bg-[#001722]/50 px-4 py-3 text-white placeholder-gray-500 transition focus:border-[#6BCFCB] focus:outline-none focus:ring-2 focus:ring-[#6BCFCB]/20"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -179,7 +175,7 @@ export function Contact() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-[#001722]/50 border border-[#6BCFCB]/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#6BCFCB] focus:ring-2 focus:ring-[#6BCFCB]/20 transition-all"
+                    className="w-full rounded-2xl border border-[#6BCFCB]/30 bg-[#001722]/50 px-4 py-3 text-white placeholder-gray-500 transition focus:border-[#6BCFCB] focus:outline-none focus:ring-2 focus:ring-[#6BCFCB]/20"
                     placeholder="Collaboration Opportunity"
                   />
                 </div>
@@ -195,20 +191,22 @@ export function Contact() {
                     onChange={handleChange}
                     required
                     rows={5}
-                    className="w-full px-4 py-3 bg-[#001722]/50 border border-[#6BCFCB]/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#6BCFCB] focus:ring-2 focus:ring-[#6BCFCB]/20 transition-all resize-none"
+                    className="w-full rounded-2xl border border-[#6BCFCB]/30 bg-[#001722]/50 px-4 py-3 text-white placeholder-gray-500 transition focus:border-[#6BCFCB] focus:outline-none focus:ring-2 focus:ring-[#6BCFCB]/20 resize-none"
                     placeholder="Your message here..."
                   />
                 </div>
 
                 {submitStatus === 'success' && (
-                  <div className="bg-green-900/30 border border-green-500/50 rounded-lg p-4 flex items-center gap-3 text-green-300">
-                    <CheckCircle size={20} />
-                    <span>Your email client will open to send the message!</span>
+                  <div className="rounded-2xl border border-green-500/50 bg-green-900/30 p-4 text-green-300">
+                    <div className="flex items-center gap-3">
+                      <CheckCircle size={20} />
+                      <span>Your email client will open to send the message.</span>
+                    </div>
                   </div>
                 )}
 
                 {submitStatus === 'error' && (
-                  <div className="bg-red-900/30 border border-red-500/50 rounded-lg p-4 text-red-300">
+                  <div className="rounded-2xl border border-red-500/50 bg-red-900/30 p-4 text-red-300">
                     Something went wrong. Please try again or email directly.
                   </div>
                 )}
@@ -216,28 +214,17 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full px-6 py-4 bg-[#FE580B] hover:bg-[#ff6d28] text-white rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#FE580B] px-6 py-4 font-semibold text-white transition hover:bg-[#ff6d28] disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  {isSubmitting ? (
-                    'Sending...'
-                  ) : (
-                    <>
-                      <Send size={20} />
-                      <span>Send Message</span>
-                    </>
-                  )}
+                  {isSubmitting ? 'Sending...' : <><Send size={20} /> Send Message</>}
                 </button>
               </form>
             </div>
           </div>
 
-          <div className="pt-16 mt-16 border-t border-[#6BCFCB]/20 text-center">
-            <p className="text-[#6BCFCB] text-xl mb-4 italic">
-              "Challenge. Change. Impact!"
-            </p>
-            <p className="text-sm text-gray-400">
-              © 2026 Mulgeta Mersha Cheru. Structural Engineer | Academic Leader | Researcher
-            </p>
+          <div className="mt-16 border-t border-[#6BCFCB]/20 pt-12 text-center">
+            <p className="text-[#6BCFCB] text-xl mb-4 italic">"Challenge. Change. Impact."</p>
+            <p className="text-sm text-gray-400">© 2026 Mulgeta Mersha Cheru. Structural Engineer · Academic Leader · Researcher</p>
           </div>
         </div>
       </div>
