@@ -230,6 +230,43 @@ function renderSectionDetails(section: string, store: PortfolioData) {
                 <p className="mt-1 text-sm text-slate-500">{store.contact.additionalInfo || 'No extra details'}</p>
               </div>
             </div>
+            {(store.contact.researchGate || store.contact.orcid || store.contact.googleScholar) && (
+              <div className="mt-6 rounded-[24px] border border-slate-200 bg-slate-50 p-4">
+                <p className="text-sm font-semibold text-slate-700 mb-3">Academic profiles</p>
+                <div className="space-y-3">
+                  {store.contact.researchGate && (
+                    <a
+                      href={store.contact.researchGate}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-sky-600 hover:text-sky-800"
+                    >
+                      ResearchGate
+                    </a>
+                  )}
+                  {store.contact.orcid && (
+                    <a
+                      href={store.contact.orcid}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-sky-600 hover:text-sky-800"
+                    >
+                      ORCID
+                    </a>
+                  )}
+                  {store.contact.googleScholar && (
+                    <a
+                      href={store.contact.googleScholar}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-sky-600 hover:text-sky-800"
+                    >
+                      Google Scholar
+                    </a>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       ) : (
@@ -276,6 +313,9 @@ export function AdminSection() {
     location: '',
     linkedin: '',
     github: '',
+    researchGate: '',
+    orcid: '',
+    googleScholar: '',
     additionalInfo: '',
   });
 
@@ -311,6 +351,9 @@ export function AdminSection() {
         location: contact.location,
         linkedin: contact.linkedin,
         github: contact.github,
+        researchGate: contact.researchGate,
+        orcid: contact.orcid,
+        googleScholar: contact.googleScholar,
         additionalInfo: contact.additionalInfo,
       });
     }
@@ -522,6 +565,33 @@ export function AdminSection() {
             <input
               value={contactForm.github || ''}
               onChange={(e) => handleContactInput('github', e.target.value)}
+              className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-900 focus:border-sky-500 focus:outline-none"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-2">ResearchGate</label>
+            <input
+              value={contactForm.researchGate || ''}
+              onChange={(e) => handleContactInput('researchGate', e.target.value)}
+              placeholder="https://www.researchgate.net/profile/..."
+              className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-900 focus:border-sky-500 focus:outline-none"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-2">ORCID</label>
+            <input
+              value={contactForm.orcid || ''}
+              onChange={(e) => handleContactInput('orcid', e.target.value)}
+              placeholder="https://orcid.org/..."
+              className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-900 focus:border-sky-500 focus:outline-none"
+            />
+          </div>
+          <div className="lg:col-span-2">
+            <label className="block text-sm font-semibold text-slate-700 mb-2">Google Scholar</label>
+            <input
+              value={contactForm.googleScholar || ''}
+              onChange={(e) => handleContactInput('googleScholar', e.target.value)}
+              placeholder="https://scholar.google.com/citations?..."
               className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-900 focus:border-sky-500 focus:outline-none"
             />
           </div>

@@ -1,7 +1,9 @@
-import { Mail, Phone, MapPin, Linkedin, ExternalLink, Send, CheckCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, ExternalLink, Send, CheckCircle, BookOpen, Globe } from 'lucide-react';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { usePortfolioStore } from '../store/portfolioStore';
 
 export function Contact() {
+  const { contact } = usePortfolioStore();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -66,7 +68,7 @@ export function Contact() {
               </div>
 
               <a
-                href="mailto:mulgeta_mersha@slu.edu.et"
+                href={`mailto:${contact?.email ?? 'mulgeta_mersha@slu.edu.et'}`}
                 className="bg-[#084A48]/50 p-6 rounded-3xl border border-[#6BCFCB]/20 hover:border-[#6BCFCB] transition-all hover:shadow-lg hover:shadow-[#6BCFCB]/20 group block"
               >
                 <div className="flex items-center gap-4">
@@ -75,13 +77,13 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400 mb-1">Email</p>
-                    <p className="text-white">mulgeta_mersha@slu.edu.et</p>
+                    <p className="text-white">{contact?.email ?? 'mulgeta_mersha@slu.edu.et'}</p>
                   </div>
                 </div>
               </a>
 
               <a
-                href="tel:+251910074638"
+                href={`tel:${contact?.phone ?? '+251910074638'}`}
                 className="bg-[#084A48]/50 p-6 rounded-3xl border border-[#6BCFCB]/20 hover:border-[#6BCFCB] transition-all hover:shadow-lg hover:shadow-[#6BCFCB]/20 group block"
               >
                 <div className="flex items-center gap-4">
@@ -90,7 +92,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400 mb-1">Phone</p>
-                    <p className="text-white">+251 910 074 638</p>
+                    <p className="text-white">{contact?.phone ?? '+251 910 074 638'}</p>
                   </div>
                 </div>
               </a>
@@ -102,13 +104,13 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400 mb-1">Location</p>
-                    <p className="text-white">Fiche, Ethiopia</p>
+                    <p className="text-white">{contact?.location ?? 'Fiche, Ethiopia'}</p>
                   </div>
                 </div>
               </div>
 
               <a
-                href="https://www.linkedin.com/in/mulgeta123"
+                href={contact?.linkedin ?? 'https://www.linkedin.com/in/mulgeta123'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#084A48]/50 p-6 rounded-3xl border border-[#6BCFCB]/20 hover:border-[#6BCFCB] transition-all hover:shadow-lg hover:shadow-[#6BCFCB]/20 group block"
@@ -126,6 +128,76 @@ export function Contact() {
                   </div>
                 </div>
               </a>
+
+              {(contact?.researchGate || contact?.orcid || contact?.googleScholar) && (
+                <div className="grid gap-6 sm:grid-cols-3">
+                  {contact?.researchGate && (
+                    <a
+                      href={contact.researchGate}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-[#084A48]/50 p-6 rounded-3xl border border-[#6BCFCB]/20 hover:border-[#6BCFCB] transition-all hover:shadow-lg hover:shadow-[#6BCFCB]/20 group block"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="rounded-2xl bg-[#6BCFCB]/20 p-3 group-hover:bg-[#6BCFCB]/30 transition-colors">
+                          <BookOpen className="text-[#6BCFCB]" size={24} />
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-400 mb-1">ResearchGate</p>
+                          <p className="text-white flex items-center gap-2">
+                            View profile
+                            <ExternalLink size={16} />
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  )}
+
+                  {contact?.orcid && (
+                    <a
+                      href={contact.orcid}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-[#084A48]/50 p-6 rounded-3xl border border-[#6BCFCB]/20 hover:border-[#6BCFCB] transition-all hover:shadow-lg hover:shadow-[#6BCFCB]/20 group block"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="rounded-2xl bg-[#6BCFCB]/20 p-3 group-hover:bg-[#6BCFCB]/30 transition-colors">
+                          <Globe className="text-[#6BCFCB]" size={24} />
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-400 mb-1">ORCID</p>
+                          <p className="text-white flex items-center gap-2">
+                            View researcher ID
+                            <ExternalLink size={16} />
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  )}
+
+                  {contact?.googleScholar && (
+                    <a
+                      href={contact.googleScholar}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-[#084A48]/50 p-6 rounded-3xl border border-[#6BCFCB]/20 hover:border-[#6BCFCB] transition-all hover:shadow-lg hover:shadow-[#6BCFCB]/20 group block"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="rounded-2xl bg-[#6BCFCB]/20 p-3 group-hover:bg-[#6BCFCB]/30 transition-colors">
+                          <ExternalLink className="text-[#6BCFCB]" size={24} />
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-400 mb-1">Google Scholar</p>
+                          <p className="text-white flex items-center gap-2">
+                            View citations
+                            <ExternalLink size={16} />
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
 
             <div className="bg-[#084A48]/50 p-8 rounded-3xl border border-[#6BCFCB]/20 shadow-xl">
@@ -144,7 +216,7 @@ export function Contact() {
                     onChange={handleChange}
                     required
                     className="w-full rounded-2xl border border-[#6BCFCB]/30 bg-[#001722]/50 px-4 py-3 text-white placeholder-gray-500 transition focus:border-[#6BCFCB] focus:outline-none focus:ring-2 focus:ring-[#6BCFCB]/20"
-                    placeholder="John Doe"
+                    placeholder="Full Name"
                   />
                 </div>
 
@@ -160,7 +232,7 @@ export function Contact() {
                     onChange={handleChange}
                     required
                     className="w-full rounded-2xl border border-[#6BCFCB]/30 bg-[#001722]/50 px-4 py-3 text-white placeholder-gray-500 transition focus:border-[#6BCFCB] focus:outline-none focus:ring-2 focus:ring-[#6BCFCB]/20"
-                    placeholder="john@example.com"
+                    placeholder="Email"
                   />
                 </div>
 

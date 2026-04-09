@@ -65,6 +65,9 @@ export interface Contact {
   phone: string;
   linkedin?: string;
   github?: string;
+  researchGate?: string;
+  orcid?: string;
+  googleScholar?: string;
   location: string;
   additionalInfo?: string;
 }

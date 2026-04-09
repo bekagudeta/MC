@@ -127,12 +127,21 @@ const seedData = async () => {
     // Research data
     const researchData = [
       {
+        title: "Performance of Encased Composite Columns",
+        description: "Master’s thesis research investigating the performance of encased composite columns under cyclic lateral loads using finite element simulation.",
+        journal: "Jimma University - Master’s Thesis",
+        year: 2022,
+        link: "",
+        coAuthors: ["Mulgeta Mersha Cheru"],
+        status: "published"
+      },
+      {
         title: "The effects of different steel sections on the performance of encased composite columns under cyclic lateral loads",
-        description: "Investigation of fully encased composite columns subjected to horizontal cyclic loads using finite element simulation",
+        description: "Investigation of fully encased composite columns subjected to horizontal cyclic loads using finite element simulation.",
         journal: "Results in Engineering (Elsevier)",
-        year: "2024",
+        year: 2024,
         link: "https://doi.org/10.1016/j.rineng.2024.103510",
-        coAuthors: "Regasa Yadeta Sembeta, Kefiyalew Zerfu, Mulgeta Mersha, Elmer C Agon",
+        coAuthors: ["Regasa Yadeta Sembeta", "Kefiyalew Zerfu", "Mulgeta Mersha", "Elmer C Agon"],
         status: "published"
       }
     ];
@@ -160,6 +169,9 @@ const seedData = async () => {
       phone: "+251 910 074 638",
       linkedin: "https://www.linkedin.com/in/mulgeta123",
       github: "https://github.com/mulgeta123",
+      researchGate: "https://www.researchgate.net/profile/Mulgeta-Cheru/research",
+      orcid: "https://orcid.org/0009-0002-1967-9941",
+      googleScholar: "https://scholar.google.com/citations?hl=en&user=OTl694cAAAAJ",
       location: "Fiche, Ethiopia",
       additionalInfo: "Available for consulting, research collaboration, and academic opportunities"
     };

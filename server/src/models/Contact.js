@@ -20,6 +20,18 @@ const contactSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  researchGate: {
+    type: String,
+    trim: true,
+  },
+  orcid: {
+    type: String,
+    trim: true,
+  },
+  googleScholar: {
+    type: String,
+    trim: true,
+  },
   location: {
     type: String,
     required: true,
@@ -41,7 +53,13 @@ contactSchema.statics.getContact = async function() {
     return await this.create({
       email: 'your.email@example.com',
       phone: '+1234567890',
+      linkedin: 'https://www.linkedin.com',
+      github: 'https://github.com',
+      researchGate: 'https://www.researchgate.net',
+      orcid: 'https://orcid.org',
+      googleScholar: 'https://scholar.google.com',
       location: 'Your Location',
+      additionalInfo: 'Available for consulting and research collaboration.',
     });
   }
   return contact;

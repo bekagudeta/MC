@@ -77,6 +77,27 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/auth', authRoutes);
 
 // Full portfolio endpoint
+const defaultResearchFallback = [
+  {
+    title: 'Performance of Encased Composite Columns',
+    description: 'Master’s thesis research investigating the performance of encased composite columns under cyclic lateral loads using finite element simulation.',
+    journal: 'Jimma University - Master’s Thesis',
+    year: 2022,
+    link: '',
+    coAuthors: ['Mulgeta Mersha Cheru'],
+    status: 'published',
+  },
+  {
+    title: 'The effects of different steel sections on the performance of encased composite columns under cyclic lateral loads',
+    description: 'Investigation of fully encased composite columns subjected to horizontal cyclic loads using finite element simulation.',
+    journal: 'Results in Engineering (Elsevier)',
+    year: 2024,
+    link: 'https://doi.org/10.1016/j.rineng.2024.103510',
+    coAuthors: ['Regasa Yadeta Sembeta', 'Kefiyalew Zerfu', 'Mulgeta Mersha', 'Elmer C Agon'],
+    status: 'published',
+  },
+];
+
 app.get('/api/portfolio', async (req, res) => {
   try {
     const About = (await import('./models/About.js')).default;
@@ -104,7 +125,7 @@ app.get('/api/portfolio', async (req, res) => {
         skills,
         experience,
         education,
-        research,
+        research: research.length > 0 ? research : defaultResearchFallback,
         achievements,
         contact,
       },

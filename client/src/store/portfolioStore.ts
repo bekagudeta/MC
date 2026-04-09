@@ -52,6 +52,24 @@ interface PortfolioStore extends PortfolioData {
   resetStore: () => void;
 }
 
+const mergeResearch = (backendResearch?: Research[]) => {
+  if (!backendResearch || backendResearch.length === 0) {
+    return initialState.research;
+  }
+
+  const mergedResearch = [...backendResearch];
+  initialState.research.forEach((defaultEntry) => {
+    const exists = backendResearch.some(
+      (item) => item.title === defaultEntry.title && item.year === defaultEntry.year
+    );
+    if (!exists) {
+      mergedResearch.push(defaultEntry);
+    }
+  });
+
+  return mergedResearch.sort((a, b) => (b.year || 0) - (a.year || 0));
+};
+
 const initialState: PortfolioData = {
   about: {
     name: "Mulgeta Mersha Cheru",
@@ -114,8 +132,17 @@ const initialState: PortfolioData = {
   ],
   research: [
     {
+      title: "Performance of Encased Composite Columns",
+      description: "Master’s thesis research investigating the behavior of encased composite columns under cyclic lateral loads through parametric finite element simulation.",
+      journal: "Jimma University - Master’s Thesis",
+      year: 2022,
+      link: "",
+      coAuthors: ["Mulgeta Mersha Cheru"],
+      status: "published"
+    },
+    {
       title: "The effects of different steel sections on the performance of encased composite columns under cyclic lateral loads",
-      description: "Investigation of fully encased composite columns subjected to horizontal cyclic loads using finite element simulation",
+      description: "Investigation of fully encased composite columns subjected to horizontal cyclic loads using finite element simulation.",
       journal: "Results in Engineering (Elsevier)",
       year: 2024,
       link: "https://doi.org/10.1016/j.rineng.2024.103510",
@@ -137,6 +164,9 @@ const initialState: PortfolioData = {
     phone: "+251 910 074 638",
     linkedin: "https://www.linkedin.com/in/mulgeta123",
     github: "https://github.com/mulgeta123",
+    researchGate: "https://www.researchgate.net/profile/Mulgeta-Cheru/research",
+    orcid: "https://orcid.org/0009-0002-1967-9941",
+    googleScholar: "https://scholar.google.com/citations?hl=en&user=OTl694cAAAAJ",
     location: "Fiche, Ethiopia",
     additionalInfo: "Available for consulting, research collaboration, and academic opportunities"
   }
@@ -174,13 +204,19 @@ export const usePortfolioStore = create<PortfolioStore>()(
           const portfolioData = result.data ?? {};
 
           set({
-            about: portfolioData.about ?? initialState.about,
+            about: {
+              ...initialState.about,
+              ...(portfolioData.about ?? {}),
+            },
             skills: portfolioData.skills ?? initialState.skills,
             experience: portfolioData.experience ?? initialState.experience,
             education: portfolioData.education ?? initialState.education,
-            research: portfolioData.research ?? initialState.research,
+            research: mergeResearch(portfolioData.research),
             achievements: portfolioData.achievements ?? initialState.achievements,
-            contact: portfolioData.contact ?? initialState.contact,
+            contact: {
+              ...initialState.contact,
+              ...(portfolioData.contact ?? {}),
+            },
             loading: false,
           });
         } catch (error) {
