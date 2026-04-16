@@ -16,6 +16,13 @@ export const protect = async (req, res, next) => {
           message: 'User not found',
         });
       }
+
+      if (req.user.role !== 'admin') {
+        return res.status(403).json({
+          success: false,
+          message: 'Not authorized',
+        });
+      }
       
       next();
     } catch (error) {

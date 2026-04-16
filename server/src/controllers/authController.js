@@ -2,16 +2,21 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
 // Generate JWT token
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+const generateToken = (id, role) => {
+  return jwt.sign({ id, role }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
   });
+};
+
+// Helper to safely create a case-insensitive username query
+const escapeRegExp = (string) => {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 };
 
 // Login user
 export const login = async (req, res) => {
   try {
-    const identifier = req.body.identifier || req.body.username || req.body.email;
+    const identifier = (req.body.identifier || req.body.username || req.body.email || '').trim();
     const { password } = req.body;
 
     // Validate input
@@ -24,7 +29,7 @@ export const login = async (req, res) => {
 
     const query = identifier.includes('@')
       ? { email: identifier.toLowerCase() }
-      : { username: identifier };
+      : { username: new RegExp(`^${escapeRegExp(identifier)}$`, 'i') };
 
     // Check for user
     const user = await User.findOne(query).select('+password');
@@ -36,8 +41,15 @@ export const login = async (req, res) => {
       });
     }
 
+    if (user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        message: 'Not authorized',
+      });
+    }
+
     // Create token
-    const token = generateToken(user._id);
+    const token = generateToken(user._id, user.role);
 
     res.json({
       success: true,

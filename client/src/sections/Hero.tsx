@@ -66,7 +66,7 @@ export function Hero() {
   }
   const handleDownloadCV = () => {
     const link = document.createElement('a');
-    link.href = '/cv-mulgeta-mersha-cheru.pdf';
+    link.href = '/mulgeta-mersha-cheru.pdf';
     link.download = 'Mulgeta_Mersha_Cheru_CV.pdf';
     document.body.appendChild(link);
     link.click();

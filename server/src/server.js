@@ -19,13 +19,12 @@ import authRoutes from './routes/auth.js';
 
 // Import database connection
 import connectDB from './config/database.js';
+import { createAdminIfMissing } from './utils/admin.js';
 
 // Load environment variables
 dotenv.config();
 
 // Connect to database
-connectDB();
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -164,7 +163,17 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV}`);
+const startServer = async () => {
+  await connectDB();
+  await createAdminIfMissing();
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+    console.log(`Environment: ${process.env.NODE_ENV}`);
+  });
+};
+
+startServer().catch((error) => {
+  console.error('Startup error:', error);
+  process.exit(1);
 });

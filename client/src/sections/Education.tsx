@@ -92,25 +92,23 @@ export function Education() {
                       <h3 className="mt-3 text-2xl font-semibold text-[#001722]">{item.title}</h3>
                     </div>
                     <div className="rounded-3xl bg-white/90 px-4 py-2 text-sm font-semibold text-[#084A48] shadow-sm">
-                      {item.level}
+                      {item.period}
                     </div>
                   </div>
                 </div>
                 <div className="space-y-5 bg-white/95 p-8">
                   <div className="flex flex-wrap items-center gap-3 text-sm text-[#084A48]">
                     <span className="rounded-full bg-[#6BCFCB]/10 px-3 py-1 text-[#084A48] font-medium">{item.institution}</span>
-                    <span className="font-semibold text-[#FE580B]">{item.period}</span>
+                    {item.gpa && (
+                      <span className="rounded-full border border-[#6BCFCB]/20 px-3 py-2 bg-[#F5FEFC] text-[#084A48] font-medium">GPA: {item.gpa}</span>
+                    )}
+                    <span className="rounded-full border border-[#FE580B]/20 px-3 py-1 bg-[#FE580B]/5 text-[#FE580B] font-medium">{item.level}</span>
                   </div>
-                  {item.gpa ? (
-                    <div className="flex flex-wrap gap-3 text-sm text-[#084A48]">
-                      <span className="rounded-full border border-[#6BCFCB]/20 px-3 py-2 bg-[#F5FEFC]">GPA: {item.gpa}</span>
+                  {item.thesis && (
+                    <div className="rounded-xl bg-[#F8FEFD] p-4 border-l-4 border-[#6BCFCB]">
+                      <p className="text-sm font-semibold text-[#084A48] mb-2">Thesis: {item.thesis}</p>
                     </div>
-                  ) : null}
-                  {item.thesis ? (
-                    <p className="text-[#084A48] leading-relaxed">
-                      <strong>Thesis:</strong> {item.thesis}
-                    </p>
-                  ) : null}
+                  )}
                   <p className="text-[#084A48] leading-relaxed">{item.summary}</p>
                 </div>
               </div>

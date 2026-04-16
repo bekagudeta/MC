@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { PortfolioData, About, SkillCategory, Experience, Education, Research, Achievement, Contact } from '../types/portfolio';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
 interface PortfolioStore extends PortfolioData {
   // State
   loading: boolean;
@@ -186,8 +188,9 @@ export const usePortfolioStore = create<PortfolioStore>()(
       fetchPortfolioData: async () => {
         set({ loading: true, error: null });
         try {
-          console.log('Fetching portfolio data from: http://localhost:5001/api/portfolio');
-          const response = await fetch('http://localhost:5001/api/portfolio');
+          const portfolioUrl = `${API_BASE_URL}/portfolio`;
+          console.log('Fetching portfolio data from:', portfolioUrl);
+          const response = await fetch(portfolioUrl);
           console.log('Response status:', response.status);
           console.log('Response ok:', response.ok);
           if (!response.ok) {
