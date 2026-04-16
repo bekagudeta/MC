@@ -18,13 +18,20 @@ export function Contact() {
     setIsSubmitting(true);
 
     try {
-      const mailtoLink = `mailto:mulgeta_mersha@slu.edu.et?subject=${encodeURIComponent(
-        formData.subject
-      )}&body=${encodeURIComponent(
-        `From: ${formData.name} (${formData.email})\n\n${formData.message}`
-      )}`;
+      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const response = await fetch(`${API_BASE_URL}/contact/send-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-      window.location.href = mailtoLink;
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'Failed to send message');
+      }
 
       setSubmitStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
@@ -68,7 +75,7 @@ export function Contact() {
               </div>
 
               <a
-                href={`mailto:${contact?.email ?? 'mulgeta_mersha@slu.edu.et'}`}
+                href={`mailto:${contact?.email ?? 'lalisamarsha@gmail.com'}`}
                 className="bg-[#084A48]/50 p-6 rounded-3xl border border-[#6BCFCB]/20 hover:border-[#6BCFCB] transition-all hover:shadow-lg hover:shadow-[#6BCFCB]/20 group block"
               >
                 <div className="flex items-center gap-4">
@@ -77,7 +84,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400 mb-1">Email</p>
-                    <p className="text-white">{contact?.email ?? 'mulgeta_mersha@slu.edu.et'}</p>
+                    <p className="text-white">{contact?.email ?? 'lalisamarsha@gmail.com'}</p>
                   </div>
                 </div>
               </a>
@@ -272,7 +279,7 @@ export function Contact() {
                   <div className="rounded-2xl border border-green-500/50 bg-green-900/30 p-4 text-green-300">
                     <div className="flex items-center gap-3">
                       <CheckCircle size={20} />
-                      <span>Your email client will open to send the message.</span>
+                      <span>Message sent successfully! I'll get back to you soon.</span>
                     </div>
                   </div>
                 )}
