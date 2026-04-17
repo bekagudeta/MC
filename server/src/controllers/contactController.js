@@ -52,17 +52,20 @@ export const sendContactEmail = async (req, res) => {
       });
     }
 
+    const emailPass = process.env.EMAIL_PASS?.replace(/\s+/g, '');
+    if (!process.env.EMAIL_USER || !emailPass) {
+      return res.status(500).json({
+        success: false,
+        message: 'Email service is not configured correctly.',
+      });
+    }
+
     // Create email transporter
     const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: process.env.EMAIL_PORT,
-      secure: false, // true for 465, false for other ports
+      service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-      tls: {
-        rejectUnauthorized: false, // Allow self-signed certificates
+        pass: emailPass,
       },
     });
 
